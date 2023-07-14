@@ -7,16 +7,13 @@ import '../provider/login_data_provider.dart';
 
 class HomePage extends StatelessWidget {
   static String tag = 'home-page';
-  late final email;
-  late final password;
-  late final country;
 
   @override
   Widget build(BuildContext context) {
     final loginData = Provider.of<LoginDataProvider>(context);
-   email = loginData.email;
-    password = loginData.password;
-  country = loginData.country;
+    final email = loginData.email;
+    final password = loginData.password;
+    final country = loginData.country;
     const blueColor = Color(0xff4b85ec);
 
     final body = Container(
@@ -24,7 +21,14 @@ class HomePage extends StatelessWidget {
       padding: const EdgeInsets.all(28.0),
 
       child: Column(
-        children: <Widget>[_logo(), welcomeMessage(), showCredentials()],
+        children: <Widget>[_logo(), welcomeMessage(),
+      Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(
+          'Your Login Credentials are:\n Email: ${email}\nPassword: ${password}\nCountry: ${country}',
+          style: TextStyle(fontSize: 16.0, color: Colors.black),
+        ),
+      )],
       ),
     );
 
@@ -47,22 +51,13 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-  Widget welcomeMessage(){
-    return  const Padding(
+  Widget welcomeMessage() {
+    return const Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
         'Welcome to KistPay',
-        style: TextStyle(fontSize: 28.0, color: Colors.black, fontWeight: FontWeight.bold),
-      ),
-    );
-
-  }
-  Widget showCredentials(){
-    return Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Text(
-        'Your Login Credentials are:\n Email: ${email}\nPassword: ${password}\nCountry: ${country}',
-        style: TextStyle(fontSize: 16.0, color: Colors.black),
+        style: TextStyle(
+            fontSize: 28.0, color: Colors.black, fontWeight: FontWeight.bold),
       ),
     );
   }
